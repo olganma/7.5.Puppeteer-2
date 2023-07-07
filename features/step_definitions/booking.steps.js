@@ -2,8 +2,11 @@ const puppeteer = require("puppeteer");
 const chai = require("chai");
 const expect = chai.expect;
 const { Given, When, Then, Before, After } = require("@cucumber/cucumber");
-const { clickElement, getText, getValueForDisabled } = require("../../lib/commands.js");
-const {setDefaultTimeout} = require("../../lib/commands.js"); //убрать?
+const {
+  clickElement,
+  getText,
+  getValueForDisabled,
+} = require("../../lib/commands.js");
 
 Before(async function () {
   const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
@@ -25,16 +28,25 @@ Given("user is on {string} page", async function (string) {
 });
 
 When("user selects {string} day", async function (string) {
-  return await clickElement(this.page, `a.page-nav__day:nth-of-type(${string})`);
+  return await clickElement(
+    this.page,
+    `a.page-nav__day:nth-of-type(${string})`
+  );
 });
 
 When("user selects time", async function () {
   await clickElement(this.page, "a.movie-seances__time");
 });
 
-When("user selects {string} row {string} seat", async function (string, string) {
-  await clickElement(this.page, `.buying-scheme__wrapper > :nth-child(${string}) > :nth-child(${string})`);
-});
+When(
+  "user selects {string} row and seat",
+  async function (string) {
+    await clickElement(
+      this.page,
+      `.buying-scheme__wrapper > :nth-child(${string}) > :nth-child(${string})`
+    );
+  }
+);
 
 When("user clicks button 'Забронировать'", async function () {
   await clickElement(this.page, ".acceptin-button");
@@ -55,8 +67,3 @@ Then("user sees button disabled {string}", async function (string) {
   const expected = await string;
   expect(actual).contains(expected);
 });
-
-
-
-
-
