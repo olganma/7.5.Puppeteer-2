@@ -7,8 +7,8 @@ let page;
 
 beforeEach(async () => {
   page = await browser.newPage();
-  await page.goto("http://qamid.tmweb.ru/");
-  await clickElement(page, "a.page-nav__day:nth-of-type(5)");
+  await page.goto("http://qamid.tmweb.ru/client/index.php");
+  await clickElement(page, "a.page-nav__day:nth-of-type(7)");
   await clickElement(page, "a.movie-seances__time");
 });
 
