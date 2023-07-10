@@ -7,6 +7,8 @@ const {
   getText,
   getValueForDisabled,
 } = require("../../lib/commands.js");
+const { setDefaultTimeout } = require("@cucumber/cucumber");
+setDefaultTimeout(60 * 1000);
 
 Before(async function () {
   const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
@@ -38,15 +40,12 @@ When("user selects time", async function () {
   await clickElement(this.page, "a.movie-seances__time");
 });
 
-When(
-  "user selects {string} row and seat",
-  async function (string) {
-    await clickElement(
-      this.page,
-      `.buying-scheme__wrapper > :nth-child(${string}) > :nth-child(${string})`
-    );
-  }
-);
+When("user selects {string} row and seat", async function (string) {
+  await clickElement(
+    this.page,
+    `.buying-scheme__wrapper > :nth-child(${string}) > :nth-child(${string})`
+  );
+});
 
 When("user clicks button 'Забронировать'", async function () {
   await clickElement(this.page, ".acceptin-button");
